@@ -8,11 +8,40 @@ let ch = can.height;
 let posx = (cw / 2) - 60;
 let posy = ch - 150;
 
-
 let ric1 = new Image();
-let alex1 = new Image();
-alex1.src = 'JS/alex (1).png';
+
 ric1.src = 'JS/ricardo11.png';
+let alex1 = new Image(),
+    alex2 = new Image(),
+    alex3 = new Image(),
+    alex4 = new Image(),
+    alex5 = new Image(),
+    alex6 = new Image(),
+    alex7 = new Image(),
+    alex8 = new Image(),
+    alex9 = new Image(),
+    alex10 = new Image();
+
+alex1.src = 'JS/alex (1).png';
+alex2.src = 'JS/alex (2).png';
+alex3.src = 'JS/alex (3).png';
+alex4.src = 'JS/alex (4).png';
+alex5.src = 'JS/alex (5).png';
+alex6.src = 'JS/alex (6).png';
+alex7.src = 'JS/alex (7).png';
+alex8.src = 'JS/alex (8).png';
+alex9.src = 'JS/alex (9).png';
+alex10.src = 'JS/alex (10).png';
+
+let alex = [alex1, alex2, alex3, alex4, alex5, alex6, alex7, alex8, alex9, alex10 ];
+
+var pipe = [];
+
+pipe[0] = {
+ x : 100,
+ y : 100,
+ img : alex[0]
+}
 
 //document.addEventListener("keydown", move);
 function move() {
@@ -51,7 +80,24 @@ class Sprite {
         
     }
     render() {
-        ctx.drawImage(alex1, 0, 0)
+        
+        //ctx.drawImage(alex1, 0, 0)
+        for(var i = 0; i < pipe.length; i++) {
+            //can.clearRect(pipe[i].x, pipe[i].y, 100, 100);
+            ctx.drawImage(pipe[i].img, pipe[i].x, pipe[i].y);
+            
+            pipe[i].y += 5;
+           
+            if(pipe[i].y == 250) {
+            let rand = rnd(1,10)
+            console.log(rand)
+            pipe.push({
+            x : rnd(0, 900),
+            y : 0,
+            img : alex[rand]
+            })
+            ;
+            }}
         this.ctx.drawImage(
             this.image,
             this.frameIndex * this.width / this.numberOfFrames,
