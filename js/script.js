@@ -1,10 +1,31 @@
 
 let can = document.getElementById('canvas');
 let ctx = can.getContext("2d");
-
+let posx = 0;
+let posy = 0;
 
 let ric1 = new Image();
 ric1.src = 'JS/ricardo.png';
+
+//document.addEventListener("keydown", move);
+function move() {
+    ric1.src = 'JS/ricardo2.png';
+    posx -= 20;
+}
+
+function move2() {
+    ric1.src = 'JS/ricardo.png';
+    posx += 20;
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.code == 'KeyA') {
+      move();
+    }
+    if (event.code == 'KeyD') {
+        move2();
+      }
+  });
 
 class Sprite {
     constructor(options) {
@@ -19,14 +40,15 @@ class Sprite {
         this.start();
     }
     render() {
+        this.ctx.clearRect(posx, posy, this.width / this.numberOfFrames, this.height);
         this.ctx.drawImage(
             this.image,
             this.frameIndex * this.width / this.numberOfFrames,
             0,
             this.width / this.numberOfFrames,
             this.height,
-            0,
-            0,
+            posx,
+            posy,
             this.width / this.numberOfFrames,
             this.height
         )
