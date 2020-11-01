@@ -1,21 +1,31 @@
 
 let can = document.getElementById('canvas');
 let ctx = can.getContext("2d");
-let posx = 0;
-let posy = 0;
+can.width = 1000;
+can.height = 600;
+let cw = can.width;
+let ch = can.height;
+let posx = (cw / 2) - 60;
+let posy = ch - 150;
+
 
 let ric1 = new Image();
-ric1.src = 'JS/ricardo.png';
+let alex1 = new Image();
+alex1.src = 'JS/alex (1).png';
+ric1.src = 'JS/ricardo11.png';
 
 //document.addEventListener("keydown", move);
 function move() {
-    ric1.src = 'JS/ricardo2.png';
-    posx -= 20;
+    sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
+    ric1.src = 'JS/ricardo12.png';
+    if (posx > -20) {posx -= 20;}
+    
 }
 
 function move2() {
-    ric1.src = 'JS/ricardo.png';
-    posx += 20;
+    sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
+    ric1.src = 'JS/ricardo11.png';
+    if (posx < (cw-110)) {posx += 20;}
 }
 
 document.addEventListener('keydown', function(event) {
@@ -38,9 +48,10 @@ class Sprite {
         this.ticksPerFrame = options.ticksPerFrame || 0;
         this.numberOfFrames = options.numberOfFrames || 1;
         this.start();
+        
     }
     render() {
-        this.ctx.clearRect(posx, posy, this.width / this.numberOfFrames, this.height);
+        ctx.drawImage(alex1, 0, 0)
         this.ctx.drawImage(
             this.image,
             this.frameIndex * this.width / this.numberOfFrames,
@@ -75,11 +86,19 @@ class Sprite {
     }
 }
 
+class Enemy {
+    constructor(options){
+        this.ctx = options.ctx;
+        this.image = options.image;
+        this.width = options.width;
+        this.height = options.height;
+    }
+}
 let sprite = new Sprite ({
     ctx: can.getContext('2d'),
     image: ric1,
-    width: 2200,
-    height: 300,
+    width: 1100,
+    height: 150,
     numberOfFrames: 10,
     ticksPerFrame: 4,
 })
@@ -90,3 +109,11 @@ let requestAnimationFrame = window.requestAnimationFrame ||
                             window.webkitRequestAnimationFrame || 
                             window.msRequestAnimationFrame;
 window.requestAnimationFrame = requestAnimationFrame;
+
+
+
+function rnd(min, max) {
+    // получить случайное число от (min-0.5) до (max+0.5)
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    return Math.round(rand);
+  }
