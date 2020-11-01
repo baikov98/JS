@@ -12,24 +12,22 @@ class Sprite {
         this.image = options.image;
         this.width = options.width;
         this.height = options.height;
-        this.render();
         this.frameIndex = 0;
         this.tickCount = 0;
         this.ticksPerFrame = options.ticksPerFrame || 0;
-        this.update();
         this.numberOfFrames = options.numberOfFrames || 1;
         this.start();
     }
     render() {
         this.ctx.drawImage(
             this.image,
+            this.frameIndex * this.width / this.numberOfFrames,
             0,
-            0,
-            this.width,
+            this.width / this.numberOfFrames,
             this.height,
             0,
             0,
-            this.width,
+            this.width / this.numberOfFrames,
             this.height
         )
     }
@@ -58,8 +56,8 @@ class Sprite {
 let sprite = new Sprite ({
     ctx: can.getContext('2d'),
     image: ric1,
-    width: 110,
-    height: 60,
+    width: 2200,
+    height: 300,
     numberOfFrames: 10,
     ticksPerFrame: 4,
 })
