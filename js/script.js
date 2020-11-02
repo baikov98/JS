@@ -34,6 +34,45 @@ alex9.src = 'JS/alex (9).png';
 alex10.src = 'JS/alex (10).png';
 
 let alex = [alex1, alex2, alex3, alex4, alex5, alex6, alex7, alex8, alex9, alex10 ];
+var newpipe1 = new Audio();
+var newpipe2 = new Audio();
+var newpipe3 = new Audio();
+var newpipe4 = new Audio();
+var newpipe5 = new Audio();
+var newpipe6 = new Audio();
+var newpipe7 = new Audio();
+var newpipe8 = new Audio();
+var newpipe9 = new Audio();
+var newpipe10 = new Audio();
+var newpipe11 = new Audio();
+var newpipe12 = new Audio();
+
+newpipe1.src = "sound/pipe (1).mp3";
+newpipe2.src = "sound/pipe (2).mp3";
+newpipe3.src = "sound/pipe (3).mp3";
+newpipe4.src = "sound/pipe (5).mp3";
+newpipe6.src = "sound/pipe (6).mp3";
+newpipe7.src = "sound/pipe (7).mp3";
+newpipe8.src = "sound/pipe (8).mp3";
+newpipe9.src = "sound/pipe (9).mp3";
+newpipe10.src = "sound/pipe (10).mp3";
+newpipe11.src = "sound/pipe (11).mp3";
+newpipe12.src = "sound/pipe (12).mp3";
+
+
+let newpipe = [newpipe1, newpipe2, newpipe3, newpipe4, newpipe5, 
+    newpipe6, newpipe7, newpipe8, newpipe9, newpipe10, newpipe11, newpipe12]
+
+var step1 = new Audio();
+var step2 = new Audio();
+var step3 = new Audio();
+var step4 = new Audio();
+step1.src = "sound/dirt1.mp3";
+step2.src = "sound/dirt2.mp3";
+step3.src = "sound/dirt3.mp3";
+step4.src = "sound/dirt4.mp3";
+
+let step = [step1, step2, step3, step4]
 
 var pipe = [];
 
@@ -57,12 +96,21 @@ function move2() {
     if (posx < (cw-110)) {posx += 20;}
 }
 
+function move3() {
+    sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
+    ric1.src = 'JS/ricardo3.png';
+    
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.code == 'KeyA') {
       move();
     }
     if (event.code == 'KeyD') {
         move2();
+      }
+      if (event.code == 'KeyS') {
+        move3();
       }
   });
 
@@ -89,11 +137,11 @@ class Sprite {
             ctx.drawImage(pipe[i].img, pipe[i].x, pipe[i].y);
            //создание врагов
             if(pipe[i].y == 150) {
-            let rand = rnd(0,9)
+            newpipe[rnd(0, 11)].play();
             pipe.push({
             x : rnd(0, 900),
             y : 0,
-            img : alex[rand]
+            img : alex[rnd(0,9)]
             })
             ;
             }
@@ -101,7 +149,7 @@ class Sprite {
             if ((posy < (pipe[i].y + 100)) && (((posx < pipe[i].x) && ((posx +110) > pipe[i].x)) || ((posx > pipe[i].x) && ((pipe[i].x+100)>posx))) && (pipe[i].y < 600))
              {location.reload();}
             // удаление врагов
-            if ((pipe[i].y) > 590) {pipe[i] = undefined}}
+            if ((pipe[i].y) > 599) {pipe[i] = undefined}}
         }
         this.ctx.drawImage(
             this.image,
