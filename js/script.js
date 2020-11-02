@@ -1,15 +1,19 @@
 
 let can = document.getElementById('canvas');
 let ctx = can.getContext("2d");
-let score = 10;
+let score = 500;
 can.width = 1000;
 can.height = 600;
+let ran;
 let cw = can.width;
 let ch = can.height;
 let posx = (cw / 2) - 60;
 let posy = ch - 150;
 let growscore = false;
-
+let pants = new Image();
+pants.src = "JS/pants.png"
+let bg = new Image();
+bg.src = "JS/bg.png"
 let ric1 = new Image();
 
 ric1.src = 'JS/ricardo11.png';
@@ -77,27 +81,39 @@ pipe[0] = {
  img : alex[0]
 }
 
-//document.addEventListener("keydown", move);
+var pant = [];
+
+pant[0] = {
+ x : -100,
+ y : -100,
+ img : pants
+}
+
 function move() {
-    //sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
     ric1.src = 'JS/ricardo12.png';
     growscore = false;
     if (posx > -20) {posx -= 20;}
-    
-    
 }
 
 function move2() {
-   // sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
     ric1.src = 'JS/ricardo11.png';
     growscore = false;
     if (posx < (cw-110)) {posx += 20;}
 }
 
 function move3() {
-    sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
     ric1.src = 'JS/ricardo3.png';
     growscore = true;
+}
+
+function move4() {
+    if (!growscore){
+    pant.push({
+        x : posx,
+        y : posy,
+        img : pants
+        });
+    score -= 10;}
 }
 
 document.addEventListener('keydown', function(event) {
@@ -107,9 +123,12 @@ document.addEventListener('keydown', function(event) {
     if (event.code == 'KeyD') {
         move2();
       }
-      if (event.code == 'KeyS') {
+    if (event.code == 'KeyS') {
         move3();
-      }
+    }
+    if (event.code == 'KeyW') {
+        move4();
+    }
   });
 
 class Sprite {
@@ -127,33 +146,51 @@ class Sprite {
     }
     render() {
         
-        //ctx.drawImage(alex1, 0, 0)
+        ctx.drawImage(bg, 0, 0)
         for(var i = 0; i < pipe.length; i++) {
-            if (pipe[i] != undefined) {
-            ctx.clearRect(pipe[i].x, pipe[i].y, 100, 100);
+            for(var j = 0; j < pant.length; i++) {
+            if ( (pant[j].y > (pipe[i].y+100)) && 
+                (((pant[j].x < pipe[i].x) && ((pant[j].x+60) > pipe[i].x)) || ((pant[j].x < pipe[i].x+100) && ((pant[j].x+60) > pipe[i].x+100))) ) 
+            {};
             pipe[i].y += 2;
+            pant[j].y -= 6;
             ctx.drawImage(pipe[i].img, pipe[i].x, pipe[i].y);
-           //создание врагов
-            if(pipe[i].y == 150) {
-            newpipe[rnd(0, 13)].play();
-            pipe.push({
-            x : rnd(0, 900),
-            y : -80,
-            img : alex[rnd(0,9)]
-            })
-            ;
-            }
+            ctx.drawImage(pant[j].img, pant[j].x, pant[j].y);
+           
+            }};
+            //создание врагов
+            if (pipe[i].y == 150) {
+                ran = (posx+50) + (rnd(-200, 200));
+                if (ran > 900){ran=890};
+                if (ran < 0){ran=0};
+                newpipe[rnd(0, 13)].play();
+                pipe.push({
+                x : ran,
+                y : -80,
+                img : alex[rnd(0,9)]
+                });
             //проверка столкновения
             if ((posy < (pipe[i].y + 100)) && (((posx < pipe[i].x) && ((posx +110) > pipe[i].x)) || ((posx > pipe[i].x) && ((pipe[i].x+100)>posx))) && (pipe[i].y < 600))
              {location.reload();}
             // удаление врагов
-            if ((pipe[i].y) > 599) {pipe[i] = undefined}}
+            if ((pipe[i].y) > 599) {pipe[i] = undefined}
         }
+        // оружие
+        //for (var i = 0; i < pant.length; i++) {
+            
+            
+           //создание врагов
+            
+            //проверка столкновения
+            //if ((posy < (pipe[i].y + 100)) && (((posx < pipe[i].x) && ((posx +110) > pipe[i].x)) || ((posx > pipe[i].x) && ((pipe[i].x+100)>posx))) && (pipe[i].y < 600))
+             //{location.reload();}
+            // удаление врагов
+            //if ((pipe[i].y) > 599) {pipe[i] = undefined}}
+
         if (growscore) {score += 1};
-        ctx.clearRect(0, 0, cw, 20);
         ctx.fillStyle = "#fff";
         ctx.font = "16px Verdana";
-        ctx.fillText("Анаболизм: " + score, 5, 5);
+        ctx.fillText("Анаболизм: " + score, 10, 20);
         this.ctx.drawImage(
             this.image,
             this.frameIndex * this.width / this.numberOfFrames,
