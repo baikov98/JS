@@ -38,8 +38,8 @@ let alex = [alex1, alex2, alex3, alex4, alex5, alex6, alex7, alex8, alex9, alex1
 var pipe = [];
 
 pipe[0] = {
- x : 100,
- y : 100,
+ x : 0,
+ y : 0,
  img : alex[0]
 }
 
@@ -83,21 +83,26 @@ class Sprite {
         
         //ctx.drawImage(alex1, 0, 0)
         for(var i = 0; i < pipe.length; i++) {
-            //can.clearRect(pipe[i].x, pipe[i].y, 100, 100);
+            if (pipe[i] != undefined) {
+            ctx.clearRect(pipe[i].x, pipe[i].y, 100, 100);
+            pipe[i].y += 2;
             ctx.drawImage(pipe[i].img, pipe[i].x, pipe[i].y);
-            
-            pipe[i].y += 5;
-           
-            if(pipe[i].y == 250) {
-            let rand = rnd(1,10)
-            console.log(rand)
+           //создание врагов
+            if(pipe[i].y == 150) {
+            let rand = rnd(0,9)
             pipe.push({
             x : rnd(0, 900),
             y : 0,
             img : alex[rand]
             })
             ;
-            }}
+            }
+            //проверка столкновения
+            if ((posy < (pipe[i].y + 100)) && (((posx < pipe[i].x) && ((posx +110) > pipe[i].x)) || ((posx > pipe[i].x) && ((pipe[i].x+100)>posx))) && (pipe[i].y < 600))
+             {location.reload();}
+            // удаление врагов
+            if ((pipe[i].y) > 590) {pipe[i] = undefined}}
+        }
         this.ctx.drawImage(
             this.image,
             this.frameIndex * this.width / this.numberOfFrames,
@@ -109,6 +114,7 @@ class Sprite {
             this.width / this.numberOfFrames,
             this.height
         )
+        
     }
     update() {
         this.tickCount++;
