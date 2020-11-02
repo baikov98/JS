@@ -1,12 +1,14 @@
 
 let can = document.getElementById('canvas');
 let ctx = can.getContext("2d");
+let score = 10;
 can.width = 1000;
 can.height = 600;
 let cw = can.width;
 let ch = can.height;
 let posx = (cw / 2) - 60;
 let posy = ch - 150;
+let growscore = false;
 
 let ric1 = new Image();
 
@@ -46,6 +48,8 @@ var newpipe9 = new Audio();
 var newpipe10 = new Audio();
 var newpipe11 = new Audio();
 var newpipe12 = new Audio();
+var newpipe13 = new Audio();
+var newpipe14 = new Audio();
 
 newpipe1.src = "sound/pipe (1).mp3";
 newpipe2.src = "sound/pipe (2).mp3";
@@ -58,21 +62,12 @@ newpipe9.src = "sound/pipe (9).mp3";
 newpipe10.src = "sound/pipe (10).mp3";
 newpipe11.src = "sound/pipe (11).mp3";
 newpipe12.src = "sound/pipe (12).mp3";
+newpipe13.src = "sound/pipe (13).mp3";
+newpipe14.src = "sound/pipe (14).mp3";
 
 
-let newpipe = [newpipe1, newpipe2, newpipe3, newpipe4, newpipe5, 
-    newpipe6, newpipe7, newpipe8, newpipe9, newpipe10, newpipe11, newpipe12]
+let newpipe = [newpipe1, newpipe2, newpipe3, newpipe4, newpipe5, newpipe6, newpipe7, newpipe8, newpipe9, newpipe10, newpipe11, newpipe12, newpipe13, newpipe14];
 
-var step1 = new Audio();
-var step2 = new Audio();
-var step3 = new Audio();
-var step4 = new Audio();
-step1.src = "sound/dirt1.mp3";
-step2.src = "sound/dirt2.mp3";
-step3.src = "sound/dirt3.mp3";
-step4.src = "sound/dirt4.mp3";
-
-let step = [step1, step2, step3, step4]
 
 var pipe = [];
 
@@ -84,22 +79,25 @@ pipe[0] = {
 
 //document.addEventListener("keydown", move);
 function move() {
-    sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
+    //sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
     ric1.src = 'JS/ricardo12.png';
+    growscore = false;
     if (posx > -20) {posx -= 20;}
+    
     
 }
 
 function move2() {
-    sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
+   // sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
     ric1.src = 'JS/ricardo11.png';
+    growscore = false;
     if (posx < (cw-110)) {posx += 20;}
 }
 
 function move3() {
     sprite.ctx.clearRect(posx, posy, sprite.width / sprite.numberOfFrames, sprite.height);
     ric1.src = 'JS/ricardo3.png';
-    
+    growscore = true;
 }
 
 document.addEventListener('keydown', function(event) {
@@ -137,10 +135,10 @@ class Sprite {
             ctx.drawImage(pipe[i].img, pipe[i].x, pipe[i].y);
            //создание врагов
             if(pipe[i].y == 150) {
-            newpipe[rnd(0, 11)].play();
+            newpipe[rnd(0, 13)].play();
             pipe.push({
             x : rnd(0, 900),
-            y : 0,
+            y : -80,
             img : alex[rnd(0,9)]
             })
             ;
@@ -151,6 +149,11 @@ class Sprite {
             // удаление врагов
             if ((pipe[i].y) > 599) {pipe[i] = undefined}}
         }
+        if (growscore) {score += 1};
+        ctx.clearRect(0, 0, cw, 20);
+        ctx.fillStyle = "#fff";
+        ctx.font = "16px Verdana";
+        ctx.fillText("Анаболизм: " + score, 5, 5);
         this.ctx.drawImage(
             this.image,
             this.frameIndex * this.width / this.numberOfFrames,
