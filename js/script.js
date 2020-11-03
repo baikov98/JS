@@ -145,7 +145,7 @@ pant[0] = {
 function move() {
     growscore = false;
     flexon = false;
-    ric1.src = 'JS/ricardo12.png';
+    ric1.src = 'js/ricardo12.png';
     if (posx > -20) {posx -= 20;}
     
 }
@@ -153,7 +153,7 @@ function move() {
 function move2() {
     growscore = false;
     flexon = false;
-    ric1.src = 'JS/ricardo11.png';
+    ric1.src = 'js/ricardo11.png';
     if (posx < (cw-110)) {posx += 20;}
 }
 
@@ -161,7 +161,7 @@ function move3() {
     growscore = true;
     flexon = false;
     pushup[rnd(0,8)].play();
-    ric1.src = 'JS/ricardo3.png';
+    ric1.src = 'js/ricardo3.png';
     
 }
 function move4() {
@@ -178,7 +178,7 @@ function move5() {
     flexon = true;
     score = 0;
     flex[rnd(0,9)].play();
-    ric1.src = 'JS/ricardodance.png';
+    ric1.src = 'js/ricardodance.png';
     
 }
 
