@@ -11,13 +11,13 @@ let posy = ch - 150;
 let growscore = false;
 let ran;
 let pants = new Image();
-pants.src = "JS/pants.png"
+pants.src = "js/pants.png"
 let bg = new Image();
-bg.src = "JS/bg.png"
+bg.src = "js/bg.png"
 
 let ric1 = new Image();
 
-ric1.src = 'JS/ricardo11.png';
+ric1.src = 'js/ricardo11.png';
 let alex1 = new Image(),
     alex2 = new Image(),
     alex3 = new Image(),
@@ -29,16 +29,16 @@ let alex1 = new Image(),
     alex9 = new Image(),
     alex10 = new Image();
 
-alex1.src = 'JS/alex(1).png';
-alex2.src = 'JS/alex(2).png';
-alex3.src = 'JS/alex(3).png';
-alex4.src = 'JS/alex(4).png';
-alex5.src = 'JS/alex(5).png';
-alex6.src = 'JS/alex(6).png';
-alex7.src = 'JS/alex(7).png';
-alex8.src = 'JS/alex(8).png';
-alex9.src = 'JS/alex(9).png';
-alex10.src = 'JS/alex(10).png';
+alex1.src = 'js/alex(1).png';
+alex2.src = 'js/alex(2).png';
+alex3.src = 'js/alex(3).png';
+alex4.src = 'js/alex(4).png';
+alex5.src = 'js/alex(5).png';
+alex6.src = 'js/alex(6).png';
+alex7.src = 'js/alex(7).png';
+alex8.src = 'js/alex(8).png';
+alex9.src = 'js/alex(9).png';
+alex10.src = 'js/alex(10).png';
 
 let alex = [alex1, alex2, alex3, alex4, alex5, alex6, alex7, alex8, alex9, alex10 ];
 var newpipe1 = new Audio();
