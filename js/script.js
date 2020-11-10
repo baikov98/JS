@@ -174,11 +174,12 @@ function move4() {
     score -= 100;}
 }
 function move5() {
+    if (score >= 100) {
     growscore = false;
     flexon = true;
-    score = 0;
+    score -= 100;
     flex[rnd(0,9)].play();
-    ric1.src = 'js/ricardodance.png';
+    ric1.src = 'js/ricardodance.png';}
     
 }
 
