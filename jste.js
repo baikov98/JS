@@ -12,8 +12,7 @@ let growscore = false;
 let ran;
 let pants = new Image();
 pants.src = "JS/pants.png"
-let bg = new Image();
-bg.src = "JS/bg.png"
+
 let ric1 = new Image();
 
 ric1.src = 'JS/ricardo11.png';
@@ -28,16 +27,19 @@ let alex1 = new Image(),
     alex9 = new Image(),
     alex10 = new Image();
 
-alex1.src = 'JS/alex (1).png';
-alex2.src = 'JS/alex (2).png';
-alex3.src = 'JS/alex (3).png';
-alex4.src = 'JS/alex (4).png';
-alex5.src = 'JS/alex (5).png';
-alex6.src = 'JS/alex (6).png';
-alex7.src = 'JS/alex (7).png';
-alex8.src = 'JS/alex (8).png';
-alex9.src = 'JS/alex (9).png';
-alex10.src = 'JS/alex (10).png';
+alex1.src = "JS/alex(1).png";
+alex2.src = "JS/alex(2).png";
+alex3.src = "JS/alex(3).png";
+alex4.src = "JS/alex(4).png";
+alex5.src = 'JS/alex(5).png';
+alex6.src = 'JS/alex(6).png';
+alex7.src = 'JS/alex(7).png';
+alex8.src = 'JS/alex(8).png';
+alex9.src = 'JS/alex(9).png';
+alex10.src = 'JS/alex(10).png';
+
+let bg = new Image();
+bg.src = "JS/bg.png"
 
 let alex = [alex1, alex2, alex3, alex4, alex5, alex6, alex7, alex8, alex9, alex10 ];
 var newpipe1 = new Audio();
@@ -68,6 +70,12 @@ newpipe11.src = "sound/pipe (11).mp3";
 newpipe12.src = "sound/pipe (12).mp3";
 newpipe13.src = "sound/pipe (13).mp3";
 newpipe14.src = "sound/pipe (14).mp3";
+
+
+/* if (pipe[i].y > 3000) {
+    pipe.splice(i, 1)
+} */
+
 
 
 let newpipe = [newpipe1, newpipe2, newpipe3, newpipe4, newpipe5, newpipe6, newpipe7, newpipe8, newpipe9, newpipe10, newpipe11, newpipe12, newpipe13, newpipe14];
@@ -157,8 +165,7 @@ class Sprite {
         for(let i = 0; i < pipe.length; i++) {
 
             for(let j = 0; j < pant.length; j++) {
-            //if ( (pant[j].y > (pipe[i].y + 100)) && (((pant[j].x < pipe[i].x) && ((pant[j].x + 60) > pipe[i].x)) || ((pant[j].x < pipe[i].x + 100) && ((pant[j].x + 60) > pipe[i].x + 100))) ) 
-            //{};
+            
             pant[j].y -= 4;
             
             ctx.drawImage(pant[j].img, pant[j].x, pant[j].y);
@@ -186,16 +193,7 @@ class Sprite {
 
         }};
         // оружие
-        //for (var i = 0; i < pant.length; i++) {
-            
-            
-           //создание врагов
-            
-            //проверка столкновения
-            //if ((posy < (pipe[i].y + 100)) && (((posx < pipe[i].x) && ((posx +110) > pipe[i].x)) || ((posx > pipe[i].x) && ((pipe[i].x+100)>posx))) && (pipe[i].y < 600))
-             //{location.reload();}
-            // удаление врагов
-            //if ((pipe[i].y) > 599) {pipe[i] = undefined}}
+        
 
         if (growscore) {score += 1};
         ctx.fillStyle = "#fff";
@@ -259,3 +257,47 @@ function rnd(min, max) {
     let rand = min - 0.5 + Math.random() * (max - min + 1);
     return Math.round(rand);
   }
+
+
+
+
+
+
+
+  let alex1 = new Image(),
+  alex2 = new Image(),
+  alex3 = new Image(),
+  alex4 = new Image(),
+  alex5 = new Image(),
+  alex6 = new Image(),
+  alex7 = new Image(),
+  alex8 = new Image(),
+  alex9 = new Image(),
+  alex10 = new Image();
+  alex11 = new Image();
+  alex12 = new Image();
+  alex13 = new Image();
+  alex14 = new Image();
+  alex15 = new Image();
+
+alex1.src = 'js/alex(1).png';
+alex2.src = 'js/alex(2).png';
+alex3.src = 'js/alex(3).png';
+alex4.src = 'js/alex(4).png';
+alex5.src = 'js/alex(5).png';
+alex6.src = 'js/alex(6).png';
+alex7.src = 'js/alex(7).png';
+alex8.src = 'js/alex(8).png';
+alex9.src = 'js/alex(9).png';
+alex10.src = 'js/alex(10).png';
+alex11.src = 'js/alex(11).png';
+alex12.src = 'js/alex(12).png';
+alex13.src = 'js/alex(13).png';
+alex14.src = 'js/alex(14).png';
+alex15.src = 'js/alex(15).png';
+
+let bg = new Image();
+bg.src = "JS/bg.png"
+
+let alex = [alex1, alex2, alex3, alex4, alex5, alex6, alex7, alex8, alex9, alex10, alex11, alex12, alex13, alex14, alex15];
+var newpipe1 = new Audio();

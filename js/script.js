@@ -12,12 +12,11 @@ let growscore = false;
 let ran;
 let pants = new Image();
 pants.src = "js/pants.png"
-let bg = new Image();
-bg.src = "js/bg.png"
+
 
 let ric1 = new Image();
-
 ric1.src = 'js/ricardo11.png';
+
 let alex1 = new Image(),
     alex2 = new Image(),
     alex3 = new Image(),
@@ -39,6 +38,12 @@ alex7.src = 'js/alex(7).png';
 alex8.src = 'js/alex(8).png';
 alex9.src = 'js/alex(9).png';
 alex10.src = 'js/alex(10).png';
+
+let bg = new Image();
+bg.src = "JS/bg.png"
+
+let menu = new Image();
+menu.src = "JS/menu.png"
 
 let alex = [alex1, alex2, alex3, alex4, alex5, alex6, alex7, alex8, alex9, alex10 ];
 var newpipe1 = new Audio();
@@ -131,7 +136,7 @@ var pipe = [];
 pipe[0] = {
  x : 0,
  y : 0,
- img : alex[0]
+ img : alex1
 }
 
 var pant = [];
@@ -165,7 +170,7 @@ function move3() {
     
 }
 function move4() {
-    if ((!growscore) && (score > 100)){
+    if ((!growscore) && (score >= 100)){
     pant.push({
         x : posx,
         y : posy,
@@ -183,7 +188,8 @@ function move5() {
     
 }
 
-document.addEventListener('keydown', function(event) {
+
+document.addEventListener('keydown', function (event) {
     if (event.code == 'KeyA') {
       move();
     }
@@ -200,6 +206,20 @@ document.addEventListener('keydown', function(event) {
         move5();
     }
   });
+let gamestared = false
+document.addEventListener('keydown', function lis(e) {
+    if (event.code == 'Enter' && !gamestared) {
+        let sprite = new Sprite ({
+            ctx: can.getContext('2d'),
+            image: ric1,
+            width: 1100,
+            height: 150,
+            numberOfFrames: 10,
+            ticksPerFrame: 4,
+        }) 
+        gamestared = true
+    }
+}, true)
 
 class Sprite {
     constructor(options) {
@@ -217,58 +237,6 @@ class Sprite {
     render() {
         
         ctx.drawImage(bg, 0, 0)
-        for(var i = 0; i < pipe.length; i++) {
-            if (pipe[i] != undefined) {
-            ctx.clearRect(pipe[i].x, pipe[i].y, 100, 100);
-            pipe[i].y += 2;
-            if ((pipe[i].y > -100) && (pipe[i].y < 600)) {
-            ctx.drawImage(pipe[i].img, pipe[i].x, pipe[i].y);}
-           //создание врагов
-            if (pipe[i].y == 60) {
-            ran = (posx+50) + (rnd(-250, 250));
-            if (ran>900){ran=880};
-            if (ran<0){ran=0};
-            newpipe[rnd(0, 11)].play();
-            pipe.push({
-            x : ran,
-            y : -50,
-            img : alex[rnd(0,9)]
-            })
-            ;
-            }
-            //проверка столкновения
-            if ((!flexon) && (posy < (pipe[i].y + 100)) && (((posx < pipe[i].x) && ((posx +110) > pipe[i].x)) || ((posx > pipe[i].x) && ((pipe[i].x+100)>posx))) && (pipe[i].y < 600))
-             {  dead[rnd(0,3)].play();
-                location.reload();}
-            
-            
-        }
-            for(let j = 0; j < pant.length; j++) {
-                if (pipe[i].y != undefined) {
-                if ((pant[j].y > pipe[i].y) && (pant[j].y <= (pipe[i].y + 100)) && (((pant[j].x <= pipe[i].x) && ((pant[j].x + 60) >= pipe[i].x)) || ((pant[j].x <= (pipe[i].x + 100)) && ((pant[j].x + 60) >= (pipe[i].x + 100))) || ((pipe[i].x <= pant[j].x) && ((pipe[i].x+100)>=(pant[j].x+60) ))  ) ) 
-                {
-                    dead[rnd(0,3)].play();
-                    score += 50;
-                    pipe[i].x = 1010;
-                    pipe[i].y = 500;
-                    pant[j].x = -150;
-                    pant[j].y = 0;
-                };}
-                pant[j].y -= 4;
-                // ограничиваем радиус атаки трусов
-                if (pant[j].y <= 252) {pant[j].x = -100; pant[j].y = -100}; 
-                if ((pant[j].y > -60) && (pant[j].y < 600)) {
-                ctx.drawImage(pant[j].img, pant[j].x, pant[j].y);}
-                };
-        }
-
-        if (growscore) {score += 1};
-        ctx.fillStyle = "#fff";
-        ctx.font = "16px Verdana";
-        ctx.fillText("Анаболизм: " + score, 10, 20);
-
-        
-
         this.ctx.drawImage(
             this.image,
             this.frameIndex * this.width / this.numberOfFrames,
@@ -280,6 +248,60 @@ class Sprite {
             this.width / this.numberOfFrames,
             this.height
         )
+        for(var i = 0; i < pipe.length; i++) {
+            if (pipe[i] != undefined) {
+                pipe[i].y += 2;
+                if ((pipe[i].y > -100) && (pipe[i].y < 600)) {
+                    ctx.drawImage(pipe[i].img, pipe[i].x, pipe[i].y);}
+                //создание врагов
+                if (pipe[i].y == 60) {
+                    ran = (posx+50) + (rnd(-250, 250));
+                    if (ran>900) {ran=880};
+                    if (ran<0) {ran=0};
+                    newpipe[rnd(0, 11)].play();
+                    pipe.push({
+                        x : ran,
+                        y : -50,
+                        img : alex[rnd(0,9)]
+                    })
+                    ;
+                }
+                //проверка столкновения
+                if ((!flexon) && (posy < (pipe[i].y + 100)) && (((posx < pipe[i].x) && ((posx +110) > pipe[i].x)) || ((posx > pipe[i].x) && ((pipe[i].x+100)>posx))) && (pipe[i].y < 600))
+                {  dead[rnd(0,3)].play();
+                    location.reload();}
+                
+        }
+            for(let j = 0; j < pant.length; j++) {
+                if (pipe[i] != undefined) {
+                if ((pant[j].y > pipe[i].y) && (pant[j].y <= (pipe[i].y + 100)) && (((pant[j].x <= pipe[i].x) && ((pant[j].x + 60) >= pipe[i].x)) || ((pant[j].x <= (pipe[i].x + 100)) && ((pant[j].x + 60) >= (pipe[i].x + 100))) || ((pipe[i].x <= pant[j].x) && ((pipe[i].x+100)>=(pant[j].x+60) ))  ) ) 
+                {
+                    dead[rnd(0,3)].play();
+                    score += 50;
+                    pipe.splice(i, 1)
+                    pant.splice(j, 1)
+
+                    console.log('pants', pant.length)
+                    console.log('pipes', pipe.length)
+                    continue
+                };}
+                pant[j].y -= 2;
+                // ограничиваем радиус атаки трусов
+                if (pant[j].y <= 252) {pant.splice(j, 1)};
+                if (pipe[i].y > 550) {pipe.splice(i, 1)};
+                if (pant[j]) {
+                    ctx.drawImage(pant[j].img, pant[j].x, pant[j].y);}
+                }    
+        }
+
+        if (growscore) {score += 1};
+        ctx.fillStyle = "#fff";
+        ctx.font = "16px Verdana";
+        ctx.fillText("Анаболизм: " + score, 10, 20);
+        
+        
+
+        
         
     }
     update() {
@@ -312,21 +334,24 @@ class Enemy {
         this.height = options.height;
     }
 }
-let sprite = new Sprite ({
-    ctx: can.getContext('2d'),
-    image: ric1,
-    width: 1100,
-    height: 150,
-    numberOfFrames: 10,
-    ticksPerFrame: 4,
-})
-
 
 let requestAnimationFrame = window.requestAnimationFrame || 
                             window.mozRequestAnimationFrame ||
                             window.webkitRequestAnimationFrame || 
                             window.msRequestAnimationFrame;
 window.requestAnimationFrame = requestAnimationFrame;
+
+function drawmenu() {
+    ctx.drawImage(menu, 0, 0)
+    window.requestAnimationFrame(drawmenu);
+}
+
+window.requestAnimationFrame(drawmenu);
+
+
+
+
+
 
 
 

@@ -1,0 +1,13 @@
+.wrapper {
+    width: 100%;
+}
+.cont {
+    width: 100%;
+} 
+
+.cont p, .canv {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+}
