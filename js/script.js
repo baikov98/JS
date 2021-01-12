@@ -45,6 +45,9 @@ bg.src = "js/bg.png"
 let menu = new Image();
 menu.src = "js/menu.png"
 
+let menuend = new Image();
+menuend.src = "js/menu1.png"
+
 let alex = [alex1, alex2, alex3, alex4, alex5, alex6, alex7, alex8, alex9, alex10 ];
 var newpipe1 = new Audio();
 var newpipe2 = new Audio();
@@ -131,7 +134,35 @@ flex9.src = "sound/flex(9).mp3";
 flex10.src = "sound/flex(10).mp3";
 let flex = [flex1, flex2, flex3, flex4, flex5, flex6, flex7, flex8, flex9, flex10]
 
-var pipe = [];
+function rnd(min, max) {
+    // получить случайное число от (min-0.5) до (max+0.5)
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    return Math.round(rand);
+  }
+
+  let requestAnimationFrame = window.requestAnimationFrame || 
+  window.mozRequestAnimationFrame ||
+  window.webkitRequestAnimationFrame || 
+  window.msRequestAnimationFrame;
+
+window.requestAnimationFrame = requestAnimationFrame;
+
+
+function drawmenu() {
+    if (!gamestarted) {
+        ctx.drawImage(menu, 0, 0)
+    if (score) {
+        ctx.drawImage(menuend, 0, 0)
+        ctx.fillStyle = "#fff";
+        ctx.font = "34px Verdana";
+        ctx.fillText("Result: " + score + ' gym points', 470, 250);}
+    window.requestAnimationFrame(drawmenu);
+    }
+}
+
+window.requestAnimationFrame(drawmenu);
+
+let pipe = [];
 
 pipe[0] = {
  x : 0,
@@ -139,7 +170,7 @@ pipe[0] = {
  img : alex1
 }
 
-var pant = [];
+let pant = [];
 
 pant[0] = {
  x : -100,
@@ -207,6 +238,7 @@ document.addEventListener('keydown', function (event) {
     }
   });
 let gamestarted = false
+
 document.addEventListener('keydown', function lis(e) {
     if (event.code == 'Enter' && !gamestarted) {
         let sprite = new Sprite ({
@@ -218,9 +250,11 @@ document.addEventListener('keydown', function lis(e) {
             ticksPerFrame: 4,
         }) 
         gamestared = true
+        end = false
+        score = 0
     }
 }, true)
-
+let end = false
 class Sprite {
     constructor(options) {
         this.ctx = options.ctx;
@@ -269,7 +303,15 @@ class Sprite {
                 //проверка столкновения
                 if ((!flexon) && (posy < (pipe[i].y + 100)) && (((posx < pipe[i].x) && ((posx +110) > pipe[i].x)) || ((posx > pipe[i].x) && ((pipe[i].x+100)>posx))) && (pipe[i].y < 600))
                 {  dead[rnd(0,3)].play();
-                    location.reload();}
+                    end = true
+                    gamestarted = false
+                    pipe = [];
+                    pipe[0] = {
+                    x : 0,
+                    y : 0,
+                    img : alex1
+                    }
+                    /* location.reload(); */}
                 
         }
             for(let j = 0; j < pant.length; j++) {
@@ -299,10 +341,6 @@ class Sprite {
         ctx.font = "16px Verdana";
         ctx.fillText("Анаболизм: " + score, 10, 20);
         
-        
-
-        
-        
     }
     update() {
         this.tickCount++;
@@ -320,44 +358,19 @@ class Sprite {
         let loop = () => {
             this.update();
             this.render();
+            if (end) {return}
             window.requestAnimationFrame(loop);
         };
         window.requestAnimationFrame(loop);
     }
 }
 
-class Enemy {
+/* class Enemy {
     constructor(options){
         this.ctx = options.ctx;
         this.image = options.image;
         this.width = options.width;
         this.height = options.height;
     }
-}
-
-let requestAnimationFrame = window.requestAnimationFrame || 
-                            window.mozRequestAnimationFrame ||
-                            window.webkitRequestAnimationFrame || 
-                            window.msRequestAnimationFrame;
-window.requestAnimationFrame = requestAnimationFrame;
-
-function drawmenu() {
-    ctx.drawImage(menu, 0, 0)
-    window.requestAnimationFrame(drawmenu);
-}
-
-window.requestAnimationFrame(drawmenu);
-
-
-
-
-
-
-
-
-function rnd(min, max) {
-    // получить случайное число от (min-0.5) до (max+0.5)
-    let rand = min - 0.5 + Math.random() * (max - min + 1);
-    return Math.round(rand);
-  }
+} */
 
