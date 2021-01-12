@@ -40,10 +40,10 @@ alex9.src = 'js/alex(9).png';
 alex10.src = 'js/alex(10).png';
 
 let bg = new Image();
-bg.src = "JS/bg.png"
+bg.src = "js/bg.png"
 
 let menu = new Image();
-menu.src = "JS/menu.png"
+menu.src = "js/menu.png"
 
 let alex = [alex1, alex2, alex3, alex4, alex5, alex6, alex7, alex8, alex9, alex10 ];
 var newpipe1 = new Audio();
@@ -206,9 +206,9 @@ document.addEventListener('keydown', function (event) {
         move5();
     }
   });
-let gamestared = false
+let gamestarted = false
 document.addEventListener('keydown', function lis(e) {
-    if (event.code == 'Enter' && !gamestared) {
+    if (event.code == 'Enter' && !gamestarted) {
         let sprite = new Sprite ({
             ctx: can.getContext('2d'),
             image: ric1,
