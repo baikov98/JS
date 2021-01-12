@@ -146,7 +146,7 @@ function rnd(min, max) {
   window.msRequestAnimationFrame;
 
 window.requestAnimationFrame = requestAnimationFrame;
-
+let taimer = new Date()
 
 function drawmenu() {
     if (!gamestarted) {
@@ -156,6 +156,12 @@ function drawmenu() {
         ctx.fillStyle = "#fff";
         ctx.font = "34px Verdana";
         ctx.fillText("Result: " + score + ' gym points', 470, 250);}
+    
+    let date = new Date()
+    ctx.fillStyle = "#fff";
+    ctx.font = "48px Verdana";
+    if ((date - taimer) < 2000) {
+        ctx.fillText(`LOADING FILES [${date - taimer}]`, 370, 350);}
     window.requestAnimationFrame(drawmenu);
     }
 }
