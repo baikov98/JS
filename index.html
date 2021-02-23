@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ricardo Flex Adventures</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://vk.com/js/api/openapi.js?168" type="text/javascript"></script>
 </head>
 <body style='background-color: black;'>
     <div class="wrapper">
@@ -13,7 +14,15 @@
             <p>A,D - движение, S - получить анаболизм, W - флексить(100 очков, злые гачисты не достанут!) <br>ПРОБЕЛ - выстрел трусами (100 анаболизма)</p>
         </div>
     </div>
-   
+
+    <div id="vk_comments"></div>
+    <script type="text/javascript">
+        window.onload = function () {
+        VK.init({apiId: 7770231, onlyWidgets: true});
+        VK.Widgets.Comments('vk_comments', {width: 500, limit: 15}, 321);
+        }
+    </script>
+
     <script src="js/script.js"></script>
 </body>
 </html>
