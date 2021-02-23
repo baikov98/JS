@@ -236,7 +236,7 @@ document.addEventListener('keydown', function (event) {
       if (event.code == 'KeyS') {
         move3();
       }
-      if (event.code == 'Space') {
+      if (event.code == 'KeyC') {
         move4();
     }
     if (event.code == 'KeyW') {
